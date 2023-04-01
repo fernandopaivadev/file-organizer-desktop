@@ -1,49 +1,55 @@
-import './style.css';
-import './app.css';
+import './style.css'
+import './app.css'
 
-import logo from './assets/images/logo-universal.png';
-import {Greet} from '../wailsjs/go/main/App';
+import { Organize, OpenDirectory } from '../wailsjs/go/main/App'
 
-// Setup the greet function
-window.greet = function () {
-    // Get name
-    let name = nameElement!.value;
+let dirPath = ""
 
-    // Check if the input is empty
-    if (name === "") return;
-
-    // Call App.Greet(name)
-    try {
-        Greet(name)
-            .then((result) => {
-                // Update result with data back from App.Greet()
-                resultElement!.innerText = result;
-            })
-            .catch((err) => {
-                console.error(err);
-            });
-    } catch (err) {
-        console.error(err);
+window.organize = async function () {
+    if (dirPath === "") {
+        alert("Selecione uma pasta")
+        return
     }
-};
+
+    const sortBy = document.querySelector<HTMLSelectElement>('#sortBy')!.value
+
+    await Organize(sortBy, dirPath)
+        .then(() => {
+            alert("Arquivos organizados com sucesso!")
+        })
+        .catch(err => {
+            alert("Erro: " + err)
+        })
+}
+
+window.openDirectory = async function () {
+    dirPath = await OpenDirectory().catch(err => {
+        alert("Erro: " + err)
+    }) ?? ""
+}
 
 document.querySelector('#app')!.innerHTML = `
-    <img id="logo" class="logo">
-      <div class="result" id="result">Please enter your name below 👇</div>
-      <div class="input-box" id="input">
-        <input class="input" id="name" type="text" autocomplete="off" />
-        <button class="btn" onclick="greet()">Greet</button>
-      </div>
-    </div>
-`;
-(document.getElementById('logo') as HTMLImageElement).src = logo;
+    <div class="container">
+        <h1>Organizador de arquivos</h1>
 
-let nameElement = (document.getElementById("name") as HTMLInputElement);
-nameElement.focus();
-let resultElement = document.getElementById("result");
+        <p>1. Escolha como quer organizar seus arquivos</p>
+
+        <select id="sortBy">
+            <option value="-d">Por data de criação</option>
+            <option value="-n">Por nome</option>
+        </select>
+
+        <p>2. Escolha os arquivos que deseja organizar</p>
+
+        <button "class" onclick="openDirectory()">Abrir pasta</button>
+
+        <button onclick="organize()">OK</button>
+    </div>
+`
 
 declare global {
     interface Window {
-        greet: () => void;
+       organize: () => void
+       openDirectory: () => void
     }
 }

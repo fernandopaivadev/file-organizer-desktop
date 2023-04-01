@@ -2,14 +2,20 @@ html {
     background-color: rgba(27, 38, 54, 1);
     text-align: center;
     color: white;
+
+    --button-background-color: #6368e2;
+    --button-hovered-background-color: #8a8eef;
+    --button-text-color: #f5f5f5;
+    --default-text-color: #333;
+    --background-color: #f5f5f5;
 }
 
 body {
     margin: 0;
     color: white;
     font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+        sans-serif;
 }
 
 @font-face {
@@ -17,10 +23,68 @@ body {
     font-style: normal;
     font-weight: 400;
     src: local(""),
-    url("assets/fonts/nunito-v16-latin-regular.woff2") format("woff2");
+        url("assets/fonts/nunito-v16-latin-regular.woff2") format("woff2");
 }
 
 #app {
     height: 100vh;
     text-align: center;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background-color)
+}
+
+.container h1 {
+    font-size: 2rem;
+    color: var(--default-text-color);
+}
+
+.container p {
+    margin: 1rem;
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: var(--default-text-color);
+}
+
+.container select {
+    font-size: 1.2rem;
+    font-weight: 600;
+    background-color: var(--button-background-color);
+    color: var(--button-text-color);
+    padding: 0.5rem;
+    width: 15rem;
+    border-radius: 0.5rem;
+    border: none;
+}
+
+.container input[type="file"]::file-selector-button {
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 0.7rem;
+    color: var(--button-text-color);
+    background-color: var(--button-background-color);
+    border-radius: 0.5rem;
+    border: none;
+}
+
+.container button {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--button-text-color);
+    background-color: var(--button-background-color);
+    padding: 0.5rem;
+    margin: 1.5rem;
+    width: 5rem;
+    border-radius: 0.5rem;
+    border: none;
+}
+
+.container button:hover {
+    background-color: var(--button-hovered-background-color);
 }
