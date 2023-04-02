@@ -3,11 +3,23 @@ import './app.css'
 
 import { Organize, OpenDirectory } from '../wailsjs/go/main/App'
 
+window.toast = function (message: string) {
+    const toast = document.createElement('div')
+    toast.classList.add('toast')
+    toast.innerText = message
+
+    document.body.appendChild(toast)
+
+    setTimeout(() => {
+        toast.remove()
+    }, 3000)
+}
+
 let dirPath = ""
 
 window.organize = async function () {
     if (dirPath === "") {
-        alert("Selecione uma pasta")
+        window.toast("Selecione uma pasta")
         return
     }
 
@@ -15,16 +27,16 @@ window.organize = async function () {
 
     await Organize(sortBy, dirPath)
         .then(() => {
-            alert("Arquivos organizados com sucesso!")
+            window.toast("Arquivos organizados com sucesso!")
         })
         .catch(err => {
-            alert("Erro: " + err)
+            window.toast("Erro: " + err)
         })
 }
 
 window.openDirectory = async function () {
     dirPath = await OpenDirectory().catch(err => {
-        alert("Erro: " + err)
+        window.toast("Erro: " + err)
     }) ?? ""
 }
 
@@ -35,8 +47,8 @@ document.querySelector('#app')!.innerHTML = `
         <p class="text">1. Escolha como quer organizar seus arquivos</p>
 
         <select id="sortBy">
-            <option value="-d">Por dia de criação</option>
             <option value="-m">Por mês de criação</option>
+            <option value="-d">Por dia de criação</option>
             <option value="-y">Por ano de criação</option>
             <option value="-n">Por nome</option>
         </select>
@@ -53,5 +65,6 @@ declare global {
     interface Window {
        organize: () => void
        openDirectory: () => void
+       toast: (message: string) => void
     }
 }
