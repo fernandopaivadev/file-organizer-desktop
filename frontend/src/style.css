@@ -21,32 +21,33 @@ body {
 @font-face {
     font-family: "Nunito";
     font-style: normal;
-    font-weight: 400;
+    /* font-weight: 500; */
     src: local(""),
         url("assets/fonts/nunito-v16-latin-regular.woff2") format("woff2");
 }
 
 #app {
     height: 100vh;
-    text-align: center;
+    width: 100vw;
+    background-color: var(--background-color);
 }
 
 .container {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    height: 95%;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 20% 15% 15% 15% 15% 20%;
+    justify-items: center;
     align-items: center;
-    background-color: var(--background-color)
 }
 
-.container h1 {
+.container .title {
     font-size: 2rem;
+    font-weight: bold;
     color: var(--default-text-color);
 }
 
-.container p {
-    margin: 1rem;
+.container .text {
     font-weight: 600;
     font-size: 1.5rem;
     color: var(--default-text-color);
@@ -54,37 +55,33 @@ body {
 
 .container select {
     font-size: 1.2rem;
-    font-weight: 600;
     background-color: var(--button-background-color);
     color: var(--button-text-color);
     padding: 0.5rem;
-    width: 15rem;
+    width: 13rem;
+    height: 2.8rem;
     border-radius: 0.5rem;
     border: none;
 }
 
-.container input[type="file"]::file-selector-button {
-    font-size: 1.2rem;
-    font-weight: 600;
-    padding: 0.7rem;
-    color: var(--button-text-color);
-    background-color: var(--button-background-color);
-    border-radius: 0.5rem;
-    border: none;
-}
-
-.container button {
-    font-size: 1.5rem;
-    font-weight: 600;
+.container .openDirectory,
+.organize {
+    font-size: 1.3rem;
     color: var(--button-text-color);
     background-color: var(--button-background-color);
     padding: 0.5rem;
-    margin: 1.5rem;
-    width: 5rem;
+    width: 4rem;
+    height: 2.8rem;
+    margin: 0.5rem;
     border-radius: 0.5rem;
     border: none;
 }
 
-.container button:hover {
+.container .openDirectory {
+    width: 8rem;
+}
+
+.container .openDirectory:hover,
+.organize:hover {
     background-color: var(--button-hovered-background-color);
 }

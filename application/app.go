@@ -5,7 +5,57 @@ import (
 	"strings"
 )
 
-func OrganizeFilesByDate(targetDirectoryPath string) error {
+func OrganizeFilesByYear(targetDirectoryPath string) error {
+	initialDirectory, err := getCurrentDirectory()
+
+	if err != nil {
+		return err
+	}
+
+	err = changeDirectory(targetDirectoryPath)
+
+	if err != nil {
+		return err
+	}
+
+	fileIndex, err := listFiles()
+
+	if err != nil {
+		return err
+	}
+
+	for _, fileInfo := range fileIndex {
+		err := createFolder(filepath.Join(
+			fileInfo.CreationTime.Year,
+		))
+
+		if err != nil {
+			return err
+		}
+
+		err = moveFile(
+			fileInfo.Name,
+			filepath.Join(
+				fileInfo.CreationTime.Year,
+				fileInfo.Name,
+			),
+		)
+
+		if err != nil {
+			return err
+		}
+	}
+
+	err = changeDirectory(initialDirectory)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func OrganizeFilesByMonth(targetDirectoryPath string) error {
 	initialDirectory, err := getCurrentDirectory()
 
 	if err != nil {
@@ -28,7 +78,6 @@ func OrganizeFilesByDate(targetDirectoryPath string) error {
 		err := createFolder(filepath.Join(
 			fileInfo.CreationTime.Year,
 			fileInfo.CreationTime.Month,
-			// fileInfo.CreationTime.Day,
 		))
 
 		if err != nil {
@@ -40,7 +89,60 @@ func OrganizeFilesByDate(targetDirectoryPath string) error {
 			filepath.Join(
 				fileInfo.CreationTime.Year,
 				fileInfo.CreationTime.Month,
-				// fileInfo.CreationTime.Day,
+				fileInfo.Name,
+			),
+		)
+
+		if err != nil {
+			return err
+		}
+	}
+
+	err = changeDirectory(initialDirectory)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func OrganizeFilesByDay(targetDirectoryPath string) error {
+	initialDirectory, err := getCurrentDirectory()
+
+	if err != nil {
+		return err
+	}
+
+	err = changeDirectory(targetDirectoryPath)
+
+	if err != nil {
+		return err
+	}
+
+	fileIndex, err := listFiles()
+
+	if err != nil {
+		return err
+	}
+
+	for _, fileInfo := range fileIndex {
+		err := createFolder(filepath.Join(
+			fileInfo.CreationTime.Year,
+			fileInfo.CreationTime.Month,
+			fileInfo.CreationTime.Day,
+		))
+
+		if err != nil {
+			return err
+		}
+
+		err = moveFile(
+			fileInfo.Name,
+			filepath.Join(
+				fileInfo.CreationTime.Year,
+				fileInfo.CreationTime.Month,
+				fileInfo.CreationTime.Day,
 				fileInfo.Name,
 			),
 		)

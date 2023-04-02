@@ -16,8 +16,8 @@ func main() {
 
 	err := wails.Run(&options.App{
 		Title:  "file-organizer-desktop",
-		Width:  700,
-		Height: 600,
+		Width:  600,
+		Height: 500,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},

@@ -30,20 +30,22 @@ window.openDirectory = async function () {
 
 document.querySelector('#app')!.innerHTML = `
     <div class="container">
-        <h1>Organizador de arquivos</h1>
+        <p class="title">Organizador de arquivos</p>
 
-        <p>1. Escolha como quer organizar seus arquivos</p>
+        <p class="text">1. Escolha como quer organizar seus arquivos</p>
 
         <select id="sortBy">
-            <option value="-d">Por data de criação</option>
+            <option value="-d">Por dia de criação</option>
+            <option value="-m">Por mês de criação</option>
+            <option value="-y">Por ano de criação</option>
             <option value="-n">Por nome</option>
         </select>
 
-        <p>2. Escolha os arquivos que deseja organizar</p>
+        <p class="text">2. Escolha os arquivos que deseja organizar</p>
 
-        <button "class" onclick="openDirectory()">Abrir pasta</button>
+        <button class="openDirectory" onclick="openDirectory()">Abrir pasta</button>
 
-        <button onclick="organize()">OK</button>
+        <button class="organize" onclick="organize()">OK</button>
     </div>
 `
 

@@ -26,14 +26,27 @@ func (app *app) OpenDirectory() (string, error) {
 }
 
 func (*app) Organize(sortBy string, dirPath string) error {
-	if sortBy == "-n" {
+	switch sortBy {
+	case "-n":
 		err := application.OrganizeFilesByName(dirPath)
 
 		if err != nil {
 			return err
 		}
-	} else if sortBy == "-d" {
-		err := application.OrganizeFilesByDate(dirPath)
+	case "-d":
+		err := application.OrganizeFilesByDay(dirPath)
+
+		if err != nil {
+			return err
+		}
+	case "-m":
+		err := application.OrganizeFilesByMonth(dirPath)
+
+		if err != nil {
+			return err
+		}
+	case "-y":
+		err := application.OrganizeFilesByYear(dirPath)
 
 		if err != nil {
 			return err
